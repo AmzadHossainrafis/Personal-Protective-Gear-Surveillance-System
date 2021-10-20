@@ -26,7 +26,7 @@ A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tin
 <p align="left"><img src="result4.jpg"\></p>
 
 # Work-flow 
-<p align="left"><"ee.jpg"\></p>
+<p align="left">img src=<"ee.jpg"\></p>
 
 ## Currently Supported Custom Functions and Flags
 * [x] [Counting Objects (total objects and per class)](#counting)
