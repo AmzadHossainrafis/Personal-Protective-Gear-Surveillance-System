@@ -21,7 +21,7 @@ A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tin
 
 
 ### Demo of Object Counter Custom Function in Action!
-<p align="right"><img src="data/helpers/result1.jpg"\></p>
+<p align="right"><img src="result1.jpg"\></p>
 <p align="center"><img src="data/helpers/tt.jpg"\></p>
 <p align="left"><img src="data/helpers/object_counter.gif"\></p>
 
