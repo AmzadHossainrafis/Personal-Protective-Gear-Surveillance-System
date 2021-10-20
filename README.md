@@ -1,12 +1,32 @@
-# yolov4-custom-functions
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
+# Personal-Protective-Gear-Surveillance-System
+
+# Abstract
+
+<p>The world in present days is going through a tough time and every country a suffering from the
+present pandemic caused by covid-19 and also at present there is no 100% curable vaccine of this
+disease. Covid-19 is spreading in rapid rate form one person to another. To minimize the spreading
+of this diseases WHO (world health org) provided various guideline like wearing mask,
+maintaining social distancing, avoiding any public gathering. But people are not maintaining those
+guide line mainly in the countries like Bangladesh, India, Pakistan and many other under
+developed countries where people live from day to day earning. Keeping that entire thing in our
+mind we tried to develop a surveillance system that monitor if they are taking enough precautions
+to save themselves from Covid-19. This surveillance system monitor people are having basic
+personal protective gear like mask, face shield, PPE, gloves not only that this surveillance system
+will able to detect if any person is violating the guide line and our system is able to take picture of
+the violator not only that this surveillance system will able the live detection that will help the
+people who are monitoring the people.<p>
 
 A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tiny implemented in TensorFlow, TFLite and TensorRT.
 
-DISCLAIMER: This repository is very similar to my repository: [tensorflow-yolov4-tflite](https://github.com/theAIGuysCode/tensorflow-yolov4-tflite). I created this repository to explore coding custom functions to be implemented with YOLOv4, and they may worsen the overal speed of the application and make it not optimized in respect to time complexity. So if you want to run the most optimal YOLOv4 code with TensorFlow than head over to my other repository. This one is to explore cool customizations and applications that can be created using YOLOv4!
+
 
 ### Demo of Object Counter Custom Function in Action!
-<p align="center"><img src="data/helpers/object_counter.gif"\></p>
+<p align="right"><img src="data/helpers/result1.jpg"\></p>
+<p align="center"><img src="data/helpers/tt.jpg"\></p>
+<p align="left"><img src="data/helpers/object_counter.gif"\></p>
+
+# Work-flow 
+<p align="center"><img src="data/helpers/tt.jpg"\></p>
 
 ## Currently Supported Custom Functions and Flags
 * [x] [Counting Objects (total objects and per class)](#counting)
