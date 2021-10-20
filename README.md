@@ -25,6 +25,10 @@ A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tin
 <p align="center"><img src="tt.jpg"\></p>
 <p align="left"><img src="result4.jpg"\></p>
 
+
+## demo-video
+[find video demo in this link ](https://drive.google.com/file/d/1hktzVsAO-OsMDXxKlDCYvt_YuE8TtrKW/view?usp=sharing)
+
 # Work-flow 
 <p align="left"><img src="ee.jpg"\></p>
 
@@ -32,8 +36,6 @@ A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tin
 * [x] [Counting Objects (total objects and per class)](#counting)
 * [x] [Print Info About Each Detection (class, confidence, bounding box coordinates)](#info)
 * [x] [Crop Detections and Save as New Image](#crop)
-* [x] [License Plate Recognition Using Tesseract OCR](#license)
-* [x] [Apply Tesseract OCR to Detections to Extract Text](#ocr)
 
 If there is a custom function you want to see created then create an issue in the issues tab and suggest it! If enough people suggest the same custom function I will add it quickly!
 
@@ -73,9 +75,7 @@ If you want to use yolov4-tiny.weights, a smaller model that is faster at runnin
 
 
 The only change within the code you need to make in order for your custom model to work is on line 14 of 'core/config.py' file.
-Update the code to point at your custom .names file as seen below. (my custom .names file is called custom.names but yours might be named differently)
-<p align="center"><img src="data/helpers/custom_config.png" width="640"\></p>
-
+Update the code to point at your custom .names file as seen below. 
 <strong>Note:</strong> If you are using the pre-trained yolov4 then make sure that line 14 remains <strong>coco.names</strong>.
 
 ## YOLOv4 Using Tensorflow (tf, .pb model)
@@ -270,14 +270,6 @@ python detect_video.py --weights ./checkpoints/custom-416 --size 416 --model yol
 Now play around with [license_plate_recognizer.py](https://github.com/theAIGuysCode/yolov4-custom-functions/blob/master/license_plate_recognizer.py) and have some fun!
 
 <a name="ocr"/>
-
-## Running Tesseract OCR on any Detections
-I have also implemented a generic use of Tesseract OCR with YOLOv4. By enabling the flag `--ocr` with any detect.py image command you can search detections for text and extract what is found. Generic preprocessing is applied on the subimage that makes up the inside of the detection bounding box. However, so many lighting or color issues require advanced preprocessing so this function is by no means perfect. You will also need to install tesseract on your local machine prior to running this flag (see links and suggestions in above section)
-
-Example command (note this image doesn't have text so will not output anything, just meant to show how command is structured):
-```
-python detect.py --weights ./checkpoints/yolov4-416 --size 416 --model yolov4 --images ./data/images/dog.jpg --ocr
-```
 
 ## YOLOv4 Using TensorFlow Lite (.tflite model)
 Can also implement YOLOv4 using TensorFlow Lite. TensorFlow Lite is a much smaller model and perfect for mobile or edge devices (raspberry pi, etc).
