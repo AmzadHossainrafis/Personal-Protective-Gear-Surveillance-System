@@ -219,7 +219,6 @@ python detect.py --weights ./checkpoints/custom-416 --size 416 --model yolov4 --
 
 ### Resulting Image Example
 The output from the above command should print any license plate numbers found to your command terminal as well as output and save the following image to the `detections` folder.
-<p align="center"><img src="data/helpers/lpr_demo.png" width="640"\></p>
 
 You should be able to see the license plate number printed on the screen above the bounding box found by YOLOv4.
 
@@ -227,7 +226,6 @@ You should be able to see the license plate number printed on the screen above t
 This section will highlight the steps I took in order to implement the License Plate Recognition with YOLOv4 and potential areas to be worked on further.
 
 This demo will be showing the step-by-step workflow on the following original image.
-<p align="center"><img src="data/images/car2.jpg" width="640"\></p>
 
 First step of the process is taking the bounding box coordinates from YOLOv4 and simply taking the subimage region within the bounds of the box. Since this image is super small the majority of the time we use cv2.resize() to blow the image up 3x its original size. 
 <p align="center"><img src="data/helpers/subimage.png" width="400"\></p>
@@ -271,125 +269,3 @@ Now play around with [license_plate_recognizer.py](https://github.com/theAIGuysC
 
 <a name="ocr"/>
 
-## YOLOv4 Using TensorFlow Lite (.tflite model)
-Can also implement YOLOv4 using TensorFlow Lite. TensorFlow Lite is a much smaller model and perfect for mobile or edge devices (raspberry pi, etc).
-```bash
-# Save tf model for tflite converting
-python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416 --input_size 416 --model yolov4 --framework tflite
-
-# yolov4
-python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoints/yolov4-416.tflite
-
-# yolov4 quantize float16
-python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoints/yolov4-416-fp16.tflite --quantize_mode float16
-
-# yolov4 quantize int8
-python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoints/yolov4-416-int8.tflite --quantize_mode int8 --dataset ./coco_dataset/coco/val207.txt
-
-# Run tflite model
-python detect.py --weights ./checkpoints/yolov4-416.tflite --size 416 --model yolov4 --images ./data/images/kite.jpg --framework tflite
-```
-### Result Image (TensorFlow Lite)
-You can find the outputted image(s) showing the detections saved within the 'detections' folder.
-#### TensorFlow Lite int8 Example
-<p align="center"><img src="data/helpers/result-int8.png" width="640"\></p>
-
-Yolov4 and Yolov4-tiny int8 quantization have some issues. I will try to fix that. You can try Yolov3 and Yolov3-tiny int8 quantization 
-
-## YOLOv4 Using TensorRT
-Can also implement YOLOv4 using TensorFlow's TensorRT. TensorRT is a high-performance inference optimizer and runtime that can be used to perform inference in lower precision (FP16 and INT8) on GPUs. TensorRT can allow up to 8x higher performance than regular TensorFlow.
-```bash# yolov3
-python save_model.py --weights ./data/yolov3.weights --output ./checkpoints/yolov3.tf --input_size 416 --model yolov3
-python convert_trt.py --weights ./checkpoints/yolov3.tf --quantize_mode float16 --output ./checkpoints/yolov3-trt-fp16-416
-
-# yolov3-tiny
-python save_model.py --weights ./data/yolov3-tiny.weights --output ./checkpoints/yolov3-tiny.tf --input_size 416 --tiny
-python convert_trt.py --weights ./checkpoints/yolov3-tiny.tf --quantize_mode float16 --output ./checkpoints/yolov3-tiny-trt-fp16-416
-
-# yolov4
-python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4.tf --input_size 416 --model yolov4
-python convert_trt.py --weights ./checkpoints/yolov4.tf --quantize_mode float16 --output ./checkpoints/yolov4-trt-fp16-416
-python detect.py --weights ./checkpoints/yolov4-trt-fp16-416 --model yolov4 --images ./data/images/kite.jpg --framework trt
-```
-
-## Command Line Args Reference
-
-```bash
-save_model.py:
-  --weights: path to weights file
-    (default: './data/yolov4.weights')
-  --output: path to output
-    (default: './checkpoints/yolov4-416')
-  --[no]tiny: yolov4 or yolov4-tiny
-    (default: 'False')
-  --input_size: define input size of export model
-    (default: 416)
-  --framework: what framework to use (tf, trt, tflite)
-    (default: tf)
-  --model: yolov3 or yolov4
-    (default: yolov4)
-
-detect.py:
-  --images: path to input images as a string with images separated by ","
-    (default: './data/images/kite.jpg')
-  --output: path to output folder
-    (default: './detections/')
-  --[no]tiny: yolov4 or yolov4-tiny
-    (default: 'False')
-  --weights: path to weights file
-    (default: './checkpoints/yolov4-416')
-  --framework: what framework to use (tf, trt, tflite)
-    (default: tf)
-  --model: yolov3 or yolov4
-    (default: yolov4)
-  --size: resize images to
-    (default: 416)
-  --iou: iou threshold
-    (default: 0.45)
-  --score: confidence threshold
-    (default: 0.25)
-  --count: count objects within images
-    (default: False)
-  --dont_show: dont show image output
-    (default: False)
-  --info: print info on detections
-    (default: False)
-  --crop: crop detections and save as new images
-    (default: False)
-    
-detect_video.py:
-  --video: path to input video (use 0 for webcam)
-    (default: './data/video/video.mp4')
-  --output: path to output video (remember to set right codec for given format. e.g. XVID for .avi)
-    (default: None)
-  --output_format: codec used in VideoWriter when saving video to file
-    (default: 'XVID)
-  --[no]tiny: yolov4 or yolov4-tiny
-    (default: 'false')
-  --weights: path to weights file
-    (default: './checkpoints/yolov4-416')
-  --framework: what framework to use (tf, trt, tflite)
-    (default: tf)
-  --model: yolov3 or yolov4
-    (default: yolov4)
-  --size: resize images to
-    (default: 416)
-  --iou: iou threshold
-    (default: 0.45)
-  --score: confidence threshold
-    (default: 0.25)
-  --count: count objects within video
-    (default: False)
-  --dont_show: dont show video output
-    (default: False)
-  --info: print info on detections
-    (default: False)
-  --crop: crop detections and save as new images
-    (default: False)
-```
-
-### References  
-
-   Huge shoutout goes to hunglc007 for creating the backbone of this repository:
-  * [tensorflow-yolov4-tflite](https://github.com/hunglc007/tensorflow-yolov4-tflite)
-"# Personal-Protective-Gear-Surveillance-System" 
